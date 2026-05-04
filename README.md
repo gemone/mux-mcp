@@ -27,20 +27,38 @@ npx mux-mcp
 
 ## MCP Configuration
 
-Add to your MCP client configuration (e.g., Claude Desktop, Cursor, etc.):
+### Claude Code
+
+Using the CLI:
+
+```bash
+# Add to current project
+claude mcp add mux mux-mcp
+
+# Add with environment variables
+claude mcp add mux -e MUX_MCP_MAX_SESSIONS=20 -e MUX_MCP_VERIFY_TIMEOUT=60000 mux-mcp
+
+# Add globally (available in all projects)
+claude mcp add --global mux mux-mcp
+```
+
+Or create a `.mcp.json` in your project root:
 
 ```json
 {
   "mcpServers": {
     "mux": {
-      "command": "npx",
-      "args": ["mux-mcp"]
+      "command": "mux-mcp",
+      "args": [],
+      "type": "stdio"
     }
   }
 }
 ```
 
-With environment variables:
+### Claude Desktop / Cursor / Other MCP Clients
+
+Add to your MCP client configuration:
 
 ```json
 {
@@ -51,6 +69,19 @@ With environment variables:
         "MUX_MCP_MAX_SESSIONS": "20",
         "MUX_MCP_VERIFY_TIMEOUT": "60000"
       }
+    }
+  }
+}
+```
+
+Or use `npx` if not installed globally:
+
+```json
+{
+  "mcpServers": {
+    "mux": {
+      "command": "npx",
+      "args": ["mux-mcp"]
     }
   }
 }
